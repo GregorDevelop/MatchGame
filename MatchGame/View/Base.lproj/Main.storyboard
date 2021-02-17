@@ -24,9 +24,9 @@
                                 <rect key="frame" x="44" y="0.0" width="808" height="393"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Remaining: 10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3U-kr-FxX">
-                                        <rect key="frame" x="319" y="0.0" width="170" height="20.5"/>
+                                        <rect key="frame" x="314" y="0.0" width="180" height="20.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="170" id="Imy-L4-HAr"/>
+                                            <constraint firstAttribute="width" constant="180" id="Imy-L4-HAr"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>

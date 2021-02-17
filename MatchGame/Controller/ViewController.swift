@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    var soundPlayer = SoundManager()
+    
     var milliseconds = 10 * 1000
     
     var timer: Timer?
@@ -34,6 +36,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerFire), userInfo: nil, repeats: true)
         
         RunLoop.main.add(timer!, forMode: .common)
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        soundPlayer.playSound(effect: .shuffle)
     }
 
     //MARK:- Timer Methods
@@ -78,10 +85,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     //MARK:- Delegate Methods
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if milliseconds <= 0 {
+            return
+        }
+        
         let selectedCell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell
         
-        if selectedCell?.selectedCard?.isFlipped == false {
+        if selectedCell?.selectedCard?.isFlipped == false && selectedCell?.selectedCard?.isMatched == false {
+            
             selectedCell?.flipUp()
+            soundPlayer.playSound(effect: .flip)
+
             
             if firstFlippedCardIndexPath == nil {
                 firstFlippedCardIndexPath = indexPath
@@ -109,6 +124,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             cardOneCell?.remove()
             cardTwoCell?.remove()
+            soundPlayer.playSound(effect: .match)
+
             
             checkForGameEnd()
             
@@ -119,6 +136,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             cardOneCell?.flipDown()
             cardTwoCell?.flipDown()
+            soundPlayer.playSound(effect: .nomatch)
+
             
         }
         
