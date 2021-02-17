@@ -13,18 +13,25 @@ class CardModel {
     
     func getCards() -> [Card] {
         
+        var generatedNumbers = [Int]()
+        
         var generatedCards = [Card]()
         
-        for _ in 1...8 {
+        while generatedNumbers.count < 8 {
             let cardOne = Card()
             let cardTwo = Card()
             
             let randomNumber = Int.random(in: 1...13)
             
-            cardOne.imageName = "card\(randomNumber)"
-            cardTwo.imageName = "card\(randomNumber)"
-            
-            generatedCards += [cardOne, cardTwo]
+            if generatedNumbers.contains(randomNumber) == false {
+                
+                cardOne.imageName = "card\(randomNumber)"
+                cardTwo.imageName = "card\(randomNumber)"
+                
+                generatedCards += [cardOne, cardTwo]
+                
+                generatedNumbers.append(randomNumber)
+            }
         }        
         generatedCards.shuffle()
         
