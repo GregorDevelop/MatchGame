@@ -8,7 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    
+
+    var firstFlippedCardIndexPath: IndexPath?
 
     let model = CardModel()
     
@@ -48,7 +49,42 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         if selectedCell?.selectedCard?.isFlipped == false {
             selectedCell?.flipUp()
+            
+            if firstFlippedCardIndexPath == nil {
+                firstFlippedCardIndexPath = indexPath
+            } else {
+                checkForMatch(indexPath)
+            }
         }
+    }
+    
+    func checkForMatch(_ secondFlippedCardIndexPath: IndexPath) {
+        
+        let cardOne = cardsArray[firstFlippedCardIndexPath!.row]
+        let cardTwo = cardsArray[secondFlippedCardIndexPath.row]
+        
+        let cardOneCell = collectionView.cellForItem(at: firstFlippedCardIndexPath!) as? CardCollectionViewCell
+        let cardTwoCell = collectionView.cellForItem(at: secondFlippedCardIndexPath) as? CardCollectionViewCell
+        
+        if cardOne.imageName == cardTwo.imageName {
+            
+            cardOne.isMatched = true
+            cardTwo.isMatched = true
+            
+            cardOneCell?.remove()
+            cardTwoCell?.remove()
+            
+        } else {
+            
+            cardOne.isFlipped = false
+            cardTwo.isFlipped = false
+            
+            cardOneCell?.flipDown()
+            cardTwoCell?.flipDown()
+            
+        }
+        
+        firstFlippedCardIndexPath = nil
         
     }
     
