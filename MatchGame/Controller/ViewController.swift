@@ -40,6 +40,18 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         return cell
     }
+    
+    //MARK:- Delegate Methods
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell
+        
+        if selectedCell?.selectedCard?.isFlipped == false {
+            selectedCell?.flipUp()
+        }
+        
+    }
+    
 }
 
 
